@@ -33,6 +33,8 @@ public class PolygonGenerator : MonoBehaviour {
 
     private MeshCollider col;
 
+    public bool update = false;
+
     // Use this for initialization
     void Start()
     {
@@ -253,5 +255,11 @@ public class PolygonGenerator : MonoBehaviour {
 
     void Update()
     {
+        if (update)
+        {
+            BuildMesh();
+            UpdateMesh();
+            update = false;
+        }
     }
 }
