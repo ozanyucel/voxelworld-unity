@@ -137,7 +137,7 @@ public class Chunk : MonoBehaviour
 
         if (Block(x, y, z) == 1)
         {
-            texturePos = tStone;
+            texturePos = setTexture(x, y, z);
         }
         else if (Block(x, y, z) == 2)
         {
@@ -156,7 +156,7 @@ public class Chunk : MonoBehaviour
 
         Vector2 texturePos;
 
-        texturePos = tStone;
+        texturePos = setTexture(x, y, z);
 
         Cube(texturePos);
     }
@@ -170,7 +170,7 @@ public class Chunk : MonoBehaviour
 
         Vector2 texturePos;
 
-        texturePos = tStone;
+        texturePos = setTexture(x, y, z);
 
         Cube(texturePos);
     }
@@ -184,7 +184,7 @@ public class Chunk : MonoBehaviour
 
         Vector2 texturePos;
 
-        texturePos = tStone;
+        texturePos = setTexture(x, y, z);
 
         Cube(texturePos);
     }
@@ -198,7 +198,7 @@ public class Chunk : MonoBehaviour
 
         Vector2 texturePos;
 
-        texturePos = tStone;
+        texturePos = setTexture(x, y, z);
 
         Cube(texturePos);
     }
@@ -212,9 +212,22 @@ public class Chunk : MonoBehaviour
 
         Vector2 texturePos;
 
-        texturePos = tStone;
+        texturePos = setTexture(x, y, z);
 
         Cube(texturePos);
+    }
+
+    Vector2 setTexture(int x, int y, int z)
+    {
+        if (Block(x, y, z) == 1)
+        {
+            return tStone;
+        }
+        else if (Block(x, y, z) == 2)
+        {
+            return tGrass;
+        }
+        return tStone;
     }
 
     void Cube(Vector2 texturePos)

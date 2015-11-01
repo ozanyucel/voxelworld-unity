@@ -41,7 +41,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: a4b47fd5906d5144f88332c464f43e77, type: 2}
+  - {fileID: 2100000, guid: cec51f78cb5c098408da4409fbcf1809, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -87,13 +87,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   worldGO: {fileID: 0}
   chunkSize: 16
+  chunkX: 0
+  chunkY: 0
+  chunkZ: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: cec51f78cb5c098408da4409fbcf1809, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 190262}
