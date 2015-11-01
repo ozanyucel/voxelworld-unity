@@ -8,27 +8,101 @@ public class Chunk : MonoBehaviour
     private List<int> newTriangles = new List<int>();
     private List<Vector2> newUV = new List<Vector2>();
 
-    private float tUnit = 0.25f;
-    private Vector2 tStone = new Vector2(1, 0);
-    private Vector2 tGrass = new Vector2(0, 1);
+    private float tUnit = 0.0625f;
+    private Vector2 tStone = new Vector2(0, 14);
+    private Vector2 tGrass = new Vector2(3, 15);
+    private Vector2 tGrassTop = new Vector2(2, 6);
 
     private Mesh mesh;
     private MeshCollider col;
 
     private int faceCount;
 
+    public GameObject worldGO;
+    private World world;
+
+    public int chunkSize = 16;
+
+    public int chunkX;
+    public int chunkY;
+    public int chunkZ;
+
     void Start () {
         mesh = GetComponent<MeshFilter>().mesh;
         col = GetComponent<MeshCollider>();
+        world = worldGO.GetComponent("World") as World;
 
-        CubeTop(0, 0, 0, 0);
-        CubeNorth(0, 0, 0, 0);
-        CubeEast(0, 0, 0, 0);
-        CubeSouth(0, 0, 0, 0);
-        CubeWest(0, 0, 0, 0);
-        CubeBot(0, 0, 0, 0);
+        GenerateMesh();
+    }
+
+    void GenerateMesh()
+    {
+
+        for (int x = 0; x < chunkSize; x++)
+        {
+            for (int y = 0; y < chunkSize; y++)
+            {
+                for (int z = 0; z < chunkSize; z++)
+                {
+                    //This code will run for every block in the chunk
+
+                    if (Block(x, y, z) != 0)
+                    {
+                        //If the block is solid
+
+                        if (Block(x, y + 1, z) == 0)
+                        {
+                            //Block above is air
+                            CubeTop(x, y, z, Block(x, y, z));
+                        }
+
+                        if (Block(x, y - 1, z) == 0)
+                        {
+                            //Block below is air
+                            CubeBot(x, y, z, Block(x, y, z));
+
+                        }
+
+                        if (Block(x + 1, y, z) == 0)
+                        {
+                            //Block east is air
+                            CubeEast(x, y, z, Block(x, y, z));
+
+                        }
+
+                        if (Block(x - 1, y, z) == 0)
+                        {
+                            //Block west is air
+                            CubeWest(x, y, z, Block(x, y, z));
+
+                        }
+
+                        if (Block(x, y, z + 1) == 0)
+                        {
+                            //Block north is air
+                            CubeNorth(x, y, z, Block(x, y, z));
+
+                        }
+
+                        if (Block(x, y, z - 1) == 0)
+                        {
+                            //Block south is air
+                            CubeSouth(x, y, z, Block(x, y, z));
+
+                        }
+
+                    }
+
+                }
+            }
+        }
 
         UpdateMesh();
+    }
+
+    byte Block(int x, int y, int z)
+    {
+        return world.Block(x + chunkX, y + chunkY, z + chunkZ);
     }
 
     void UpdateMesh()
@@ -59,9 +133,16 @@ public class Chunk : MonoBehaviour
         newVertices.Add(new Vector3(x + 1, y, z));
         newVertices.Add(new Vector3(x, y, z));
 
-        Vector2 texturePos;
+        Vector2 texturePos = new Vector2(0, 0);
 
-        texturePos = tStone;
+        if (Block(x, y, z) == 1)
+        {
+            texturePos = tStone;
+        }
+        else if (Block(x, y, z) == 2)
+        {
+            texturePos = tGrassTop;
+        }
 
         Cube(texturePos);
     }
