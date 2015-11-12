@@ -27,6 +27,8 @@ public class Chunk : MonoBehaviour
     public int chunkY;
     public int chunkZ;
 
+    public bool update;
+
     void Start () {
         mesh = GetComponent<MeshFilter>().mesh;
         col = GetComponent<MeshCollider>();
@@ -35,7 +37,16 @@ public class Chunk : MonoBehaviour
         GenerateMesh();
     }
 
-    void GenerateMesh()
+    void LateUpdate()
+    {
+        if (update)
+        {
+            GenerateMesh();
+            update = false;
+        }
+    }
+
+    public void GenerateMesh()
     {
 
         for (int x = 0; x < chunkSize; x++)
