@@ -180,6 +180,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 866470017}
   - 114: {fileID: 866470016}
+  - 114: {fileID: 866470018}
   m_Layer: 0
   m_Name: World
   m_TagString: Untagged
@@ -215,6 +216,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
+--- !u!114 &866470018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 866470015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eccd1adedaad74944bf6cef79700d408, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1276327675
 GameObject:
   m_ObjectHideFlags: 0

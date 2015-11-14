@@ -23,6 +23,8 @@ public class ModifyTerrain : MonoBehaviour {
         {
             AddBlockCursor(1);
         }
+
+        LoadChunks(GameObject.FindGameObjectWithTag("Player").transform.position, 32, 48);
     }
 
     public void ReplaceBlockCenter(float range, byte block)
@@ -179,6 +181,36 @@ public class ModifyTerrain : MonoBehaviour {
         if (z - (world.chunkSize * updateZ) == 15 && updateZ != world.chunks.GetLength(2) - 1)
         {
             world.chunks[updateX, updateY, updateZ + 1].update = true;
+        }
+    }
+
+    public void LoadChunks(Vector3 playerPos, float distToLoad, float distToUnload)
+    {
+        for (int x = 0; x < world.chunks.GetLength(0); x++)
+        {
+            for (int z = 0; z < world.chunks.GetLength(2); z++)
+            {
+
+                float dist = Vector2.Distance(new Vector2(x * world.chunkSize,
+                z * world.chunkSize), new Vector2(playerPos.x, playerPos.z));
+
+                if (dist < distToLoad)
+                {
+                    if (world.chunks[x, 0, z] == null)
+                    {
+                        world.GenColumn(x, z);
+                    }
+                }
+                else if (dist > distToUnload)
+                {
+                    if (world.chunks[x, 0, z] != null)
+                    {
+
+                        world.UnloadColumn(x, z);
+                    }
+                }
+
+            }
         }
     }
 }
